@@ -1,4 +1,0 @@
-document.getElementById("sellForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    alert("Item Listed! This is a static demo; backend functionality will be added later.");
-});
