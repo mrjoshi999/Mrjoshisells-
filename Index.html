@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Global Buy-Sell Platform</h1>
+        <nav>
+            <a href="#products">Products</a>
+            <a href="#sell">Sell Item</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </header>
 
+    <main>
+        <section id="products">
+            <h2>Available Products</h2>
+            <div class="product">
+                <img src="product1.jpg" alt="Product 1">
+                <h3>Product Name</h3>
+                <p>$100</p>
+                <button>Buy Now</button>
+            </div>
+            <!-- Add more products here -->
+        </section>
+
+        <section id="sell">
+            <h2>Sell Your Item</h2>
+            <form id="sellForm">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" required>
+                
+                <label for="price">Price:</label>
+                <input type="number" id="price" required>
+                
+                <label for="image">Upload Image:</label>
+                <input type="file" id="image" required>
+                
+                <button type="submit">List Item</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Global Marketplace. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+              </html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;
+}
+// Handle the Sell Form Submission
+document.getElementById("sellForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the form from refreshing the page
+
+    // Get the form data
+    const productName = document.getElementById("productName").value;
+    const price = document.getElementById("price").value;
+    const imageFile = document.getElementById("image").files[0];
+
+    // Create a new product card
+    const productSection = document.getElementById("products");
+    const newProduct = document.createElement("div");
+    newProduct.className = "product";
+
+    // Display the product image
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.alt = productName;
+        img.style.width = "150px";
+        img.style.height = "150px";
+        newProduct.appendChild(img);
+    };
+    reader.readAsDataURL(imageFile);
+
+    // Add product details
+    const productTitle = document.createElement("h3");
+    productTitle.textContent = productName;
+    newProduct.appendChild(productTitle);
+
+    const productPrice = document.createElement("p");
+    productPrice.textContent = `$${price}`;
+    newProduct.appendChild(productPrice);
+
+    const buyButton = document.createElement("button");
+    buyButton.textContent = "Buy Now";
+    buyButton.addEventListener("click", function () {
+        alert(`You clicked Buy Now for ${productName}!`);
+    });
+    newProduct.appendChild(buyButton);
+
+    // Append the new product to the products section
+    productSection.appendChild(newProduct);
+
+    // Clear the form
+    document.getElementById("sellForm").reset();
+    alert("Your product has been listed successfully!");
+});
